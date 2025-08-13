@@ -1,0 +1,30 @@
+#!/usr/bin/make -f
+
+#export DH_VERBOSE=1
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_SOURCE = $(DEB_SOURCE)
+DPKG_EXPORT_BUILDFLAGS=1
+
+include /usr/share/dpkg/default.mk
+
+%:
+	dh $@ --buildsystem=cmake
+
+# Enable Qt support:
+override_dh_auto_configure:
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=RelWithDebInfo -DSENTRY_INTEGRATION_QT=YES -DFETCHCONTENT_FULLY_DISCONNECTED=ON
+
+# Do not build tests and other useless stuff; we only want the library and
+# crashpad_handler:
+override_dh_auto_build:
+	dh_auto_build -- sentry crashpad_handler
+
+# Use old compression method for better backwards compatiblity:
+override_dh_builddeb:
+	dh_builddeb -- -Zgzip
+
+# Tests are not built and will fail if excecuted:
+override_dh_auto_test:
+
+# Upstream's clean job produces warnings, just ignore it:
+override_dh_auto_clean:

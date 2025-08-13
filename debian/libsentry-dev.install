@@ -1,0 +1,3 @@
+usr/lib/${DEB_HOST_MULTIARCH}/libsentry.so
+usr/include/sentry.h
+usr/lib/${DEB_HOST_MULTIARCH}/cmake/sentry usr/lib/cmake/

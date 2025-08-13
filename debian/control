@@ -1,0 +1,65 @@
+Source: sentry-native
+Maintainer: Andreas Misje <amisje@gmail.com>
+Section: libs
+Priority: optional
+Standards-Version: 4.7.2.0
+Vcs-Browser: https://github.com/misje/sentry-native-deb
+Vcs-Git: https://github.com/misje/sentry-native-deb
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ cmake (>= 3.10.2),
+ gcc,
+ g++,
+ qtbase5-dev,
+ libcurl4-openssl-dev
+
+Package: libsentry0
+Section: libs
+Architecture: any
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends}
+Description: Sentry SDK for native C++ (Qt) applications
+ sentry-native is the official Sentry SDK for C and C++ applications. It
+ provides an API to capture crashes, errors, and diagnostic events, and send
+ them to a Sentry server for aggregation, alerting, and analysis.
+ .
+ This package contains the shared runtime library required to run applications
+ built with sentry-native. Qt support is enabled.
+
+Package: sentry-crashpad
+Section: utils
+Architecture: any
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends}
+Description: Crashpad handler for sentry-native
+ sentry-native is the official Sentry SDK for C, C++, and other native
+ applications. It uses crashpad as its crash-reporting backend to capture
+ crashes and send reports to a Sentry server.
+ .
+ This package contains the crashpad handler binary used by applications built
+ with the sentry-native SDK to record crash data and submit it to Sentry. It is
+ typically launched automatically by the SDK and is not intended to be run
+ directly by end users.
+
+Package: libsentry-dev
+Architecture: any
+Section: libdevel
+Priority: optional
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${misc:Depends},
+ libsentry0 (= ${binary:Version})
+Description: Sentry SDK for native C++ (Qt) applications
+ sentry-native is the official Sentry SDK for C and C++ applications. It
+ provides an API to capture crashes, errors, and diagnostic events, and send
+ them to a Sentry server for aggregation, alerting, and analysis.
+ .
+ This package includes the development support files.

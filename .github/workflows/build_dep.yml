@@ -1,0 +1,37 @@
+name: Build and deploy packages
+
+on:
+  push:
+    paths:
+      - debian/changelog
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    env:
+      DEBIAN_FRONTEND: noninteractive
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Install build tools
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y -o Debug::pkgProblemResolver=yes --no-install-recommends install ubuntu-dev-tools equivs
+
+      - name: Install package build-deps (from debian/control)
+        run: |
+          sudo mk-build-deps --tool 'apt-get -y -o Debug::pkgProblemResolver=yes --no-install-recommends' --install --remove debian/control
+
+      - name: Build with debuild
+        run: |
+          debuild -us -uc -b -i
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          files: "../*.*deb"
