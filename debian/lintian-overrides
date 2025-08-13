@@ -1,0 +1,2 @@
+libsentry0: executable-stack-in-shared-library
+libsentry0: no-symbols-control-file

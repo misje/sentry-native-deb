@@ -311,6 +311,8 @@ if(LINUX)
 	)
 endif()
 
+set_target_properties(sentry PROPERTIES SOVERSION 0)
+
 set_target_properties(sentry PROPERTIES PUBLIC_HEADER "include/sentry.h")
 
 if(DEFINED SENTRY_FOLDER)
