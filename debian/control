@@ -22,6 +22,7 @@ Pre-Depends:
 Depends:
  ${misc:Depends},
  ${shlibs:Depends}
+Recommends: sentry-crashpad
 Description: Sentry SDK for native C++ (Qt) applications
  sentry-native is the official Sentry SDK for C and C++ applications. It
  provides an API to capture crashes, errors, and diagnostic events, and send
