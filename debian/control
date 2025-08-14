@@ -31,6 +31,22 @@ Description: Sentry SDK for native C++ (Qt) applications
  This package contains the shared runtime library required to run applications
  built with sentry-native. Qt support is enabled.
 
+Package: libsentry-dev
+Architecture: any
+Section: libdevel
+Priority: optional
+Pre-Depends:
+ ${misc:Pre-Depends}
+Depends:
+ ${misc:Depends},
+ libsentry0 (= ${binary:Version})
+Description: Sentry SDK for native C++ (Qt) applications
+ sentry-native is the official Sentry SDK for C and C++ applications. It
+ provides an API to capture crashes, errors, and diagnostic events, and send
+ them to a Sentry server for aggregation, alerting, and analysis.
+ .
+ This package includes the development support files.
+
 Package: sentry-crashpad
 Section: utils
 Architecture: any
@@ -48,19 +64,3 @@ Description: Crashpad handler for sentry-native
  with the sentry-native SDK to record crash data and submit it to Sentry. It is
  typically launched automatically by the SDK and is not intended to be run
  directly by end users.
-
-Package: libsentry-dev
-Architecture: any
-Section: libdevel
-Priority: optional
-Pre-Depends:
- ${misc:Pre-Depends}
-Depends:
- ${misc:Depends},
- libsentry0 (= ${binary:Version})
-Description: Sentry SDK for native C++ (Qt) applications
- sentry-native is the official Sentry SDK for C and C++ applications. It
- provides an API to capture crashes, errors, and diagnostic events, and send
- them to a Sentry server for aggregation, alerting, and analysis.
- .
- This package includes the development support files.
